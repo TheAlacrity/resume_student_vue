@@ -8,9 +8,10 @@ Vue.use(Router);
 
 export default new Router({
   mode: 'history',
+  hash: false, 
   base: process.env.BASE_URL,
   routes: [
-    { path: '/',name: 'home', component: StudentPortal },
+    { path: '/', name: 'home', component: Home },
     { path: "/login", name: "login", component: Login },
     { path: "/logout", name: "logout", component: Logout }
   ]
