@@ -15,7 +15,6 @@ export default {
     localStorage.removeItem("jwt");
 
     alert('Successfully Logged Out!').then(this.$router.push("/"));
-    // this.$router.push("/");
   }
 };
 </script>
