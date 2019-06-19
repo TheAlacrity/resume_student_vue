@@ -38,9 +38,9 @@ export default {
   created: function() {
     if (localStorage.getItem('jwt')) {
       alert("You're already logged in!")
-      axios.get('/api/students').then(response => {
-      this.student = response.data;
-      this.$router.push('/');
+      axios.get('/api/students/').then(response => {
+        this.students = response.data
+        this.$router.push('/student/' + this.$route.params.id);
       });
     }
   }, 
@@ -52,7 +52,7 @@ export default {
         password: this.password
       };
       axios
-        .post("/api/students", params) 
+        .post("/api/sessions", params) 
         .then(response => {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;

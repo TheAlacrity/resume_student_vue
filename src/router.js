@@ -26,14 +26,14 @@ export default new Router({
     { path: "/logout", name: "logout", component: Logout },
 
     { path: '/student/:id/edit', name: 'edit-students', component: EditStudents },
-    { path: '/student/:id/skills/edit', name: 'edit-skills', component: EditSkills },
-    { path: '/student/:id/experiences/edit', name: 'edit-experiences', component: EditExperiences },
-    { path: '/student/:id/education/edit', name: 'edit-education', component: EditEducation },
-    { path: '/student/:id/capstones/edit', name: 'edit-capstones', component: EditCapstones },
+    { path: '/skills/:id/edit', name: 'edit-skills', component: EditSkills },
+    { path: '/experiences/:id/edit', name: 'edit-experiences', component: EditExperiences },
+    { path: '/educations/:id/edit', name: 'edit-education', component: EditEducation },
+    { path: '/capstones/:id/edit', name: 'edit-capstones', component: EditCapstones },
 
-    { path: '/create/capstones', name: 'new-capstones', component: NewCapstones },
-    { path: '/create/skills', name: 'new-skills', component: NewSkills },
-    { path: '/create/education', name: 'new-education', component: NewEducation },
-    { path: '/create/experience', name: 'new-experience', component: NewExperience }
+    { path: '/capstone/new', name: 'new-capstones', component: NewCapstones },
+    { path: '/skills/new', name: 'new-skills', component: NewSkills },
+    { path: '/education/new', name: 'new-education', component: NewEducation },
+    { path: '/experience/new', name: 'new-experience', component: NewExperience }
   ]
 })

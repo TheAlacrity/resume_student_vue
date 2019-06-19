@@ -50,7 +50,7 @@ export default {
   }, 
   created: function() {
     if (localStorage.getItem('jwt')) {
-      axios.get('/api/students/' + localStorage.getItem('id')).then(response => {
+      axios.get('/api/capstones/').then(response => {
         this.student = response.data; 
       })
     }

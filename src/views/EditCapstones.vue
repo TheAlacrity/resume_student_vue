@@ -1,35 +1,31 @@
 <template>
   <div class='edit-capstones'>
     <div class='container'>
-    <h1>{{ student['first_name'] }} {{ student['last_name'] }}</h1>
     <br>
       <form v-on:submit.prevent='submit()'>
-        <div v-for="cap in student['capstones']">
-
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="inputName">Capstone Title</label>
-              <input v-model="student.capstones.name" type="text" class="form-control" id="inputName" v-bind:placeholder="cap.name">
-            </div>
-
-            <div class="form-group col-md-6">
-              <label for="inputScreenshot">Screenshot</label>
-              <input v-model="student.capstones.screenshot" type="text" class="form-control" id="inputScreenshot" v-bind:placeholder="cap.screenshot">
-            </div>
-          
-            <div class="form-group col-md-12">
-              <label for="inputUrl">URL</label>
-              <input v-model='student.capstones.url' type="text" class="form-control" id="inputUrl" v-bind:placeholder="cap.url">
-            </div>
-
-            <div class="form-group col-md-12">
-              <label for="inputDescription">Description</label>
-              <textarea v-model='student.capstones.description' class="form-control" id="inputDescription" rows="4"></textarea>
-            </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputName">Capstone Title</label>
+            <input v-model="capstone.name" type="text" class="form-control" id="inputName" v-bind:placeholder="capstone.name">
           </div>
-        <center><button type="submit" class="btn btn-primary">Update</button></center>
-          <br>
-      </div>
+
+          <div class="form-group col-md-6">
+            <label for="inputScreenshot">Screenshot</label>
+            <input v-model="capstone.screenshot" type="text" class="form-control" id="inputScreenshot" v-bind:placeholder="capstone.screenshot">
+          </div>
+        
+          <div class="form-group col-md-12">
+            <label for="inputUrl">URL</label>
+            <input v-model='capstone.url' type="text" class="form-control" id="inputUrl" v-bind:placeholder="capstone.url">
+          </div>
+
+          <div class="form-group col-md-12">
+            <label for="inputDescription">Description</label>
+            <textarea v-model='capstone.description' class="form-control" id="inputDescription" rows="4"></textarea>
+          </div>
+        </div>
+      <center><button type="submit" class="btn btn-primary">Update</button></center>
+        <br>
     </form>
     </div>
   </div>
@@ -44,104 +40,25 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-      student: {
-      "id": 7,
-      "first_name": "John",
-      "last_name": "Moose",
-      "email": "test@dot.com",
-      "phone_number": "773-555-5555",
-      "short_bio": "too short",
-      "linked_in_url": "www.linkedin.com/johnmoose",
-      "twitter_handle": "twitter/johnmoose",
-      "personal_blog": "it is personal",
-      "website_url": "www.johnmoose.com",
-      "resume_url": "resume.com",
-      "github_url": "github/something",
-      "photo": "https://images.unsplash.com/photo-1516934024742-b461fba47600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
-      "skills": [{
-                "id": 1,
-                "student_id": 7,
-                "skill_name": "so skill",
-                "student": "John"
-                }, {
-                "id": 2,
-                "student_id": 7,
-                "skill_name": "karate",
-                "student": "John"
-                }, {
-                "id": 3,
-                "student_id": 7,
-                "skill_name": "coding",
-                "student": "John"
-                }],
-      "experiences": [{
-                    "id": 1,
-                    "student_id": 7,
-                    "start_date": "1989-10-10T00:00:00.000Z",
-                    "end_date": "2005-10-10T00:00:00.000Z",
-                    "job_title": "office boy",
-                    "company_name": "Apple",
-                    "details": "no details yet",
-                    "student": "John"
-                    },
-                    {
-                    "id": 2,
-                    "student_id": 7,
-                    "start_date": "1099-10-10T00:00:00.000Z",
-                    "end_date": "2001-10-10T00:00:00.000Z",
-                    "job_title": "owner",
-                    "company_name": "Actualize",
-                    "details": "no details yet",
-                    "student": "John"
-                    }, {
-                    "id": 3,
-                    "student_id": 7,
-                    "start_date": "2009-10-10T00:00:00.000Z",
-                    "end_date": "2005-10-10T00:00:00.000Z",
-                    "job_title": "battery charger",
-                    "company_name": "AAA",
-                    "details": "no details yet",
-                    "student": "John"
-                    }],
-      "educations": [{
-                    "id": 1,
-                    "student_id": 7,
-                    "start_date": "2001-05-05T00:00:00.000Z",
-                    "end_date": "2005-05-05T00:00:00.000Z",
-                    "degree": "bachelor",
-                    "schooling": "Actualize",
-                    "details": "no details",
-                    "student": "John"
-                    }],
-      "capstones": [{
-                    "id": 1,
-                    "student_id": 7,
-                    "name": "Capstone name",
-                    "description": "blablalba",
-                    "url": "capstone.com",
-                    "screenshot": "https://images.unsplash.com/photo-1516934024742-b461fba47600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
-                    "student": "John"
-                    }]
-      }
+      capstone: []
     };
   },
   created: function() {
     if (localStorage.getItem('jwt')) {
-      axios.get('/api/students/' + localStorage.getItem('id')).then(response => {
-        this.student = response.data; 
+      axios.get('/api/capstones/' + this.$route.params.id).then(response => {
+        this.capstone = response.data; 
       })
     }
   },
   methods: {
     submit: function() {
       var params = {
-                    degree: this.student.education.degree, 
-                    schooling: this.student.education.schooling, 
-                    details: this.student.education.details, 
-                    start_date: this.student.education.start_date,
-                    end_date: this.student.education.end_date
+                    name: this.capstone.name, 
+                    description: this.capstone.description,
+                    url: this.capstone.url,
+                    screenshot: this.capstone.screenshot
                     }
-      axios.patch('/api/student/' + this.$route.params.id + '/capstones/edit/', params).then(response => {
+      axios.patch('/api/capstones/' + this.$route.params.id, params).then(response => {
         this.$router.push('/student/' + this.$route.params.id);
       })
     }
