@@ -36,12 +36,8 @@ export default {
     };
   },
   created: function() {
-    if (localStorage.getItem('jwt')) {
-      alert("You're already logged in!")
-      axios.get('/api/students/').then(response => {
-        this.students = response.data
-        this.$router.push('/student/' + this.$route.params.id);
-      });
+    if (localStorage.getItem('user_id')) {
+      this.$router.push('/students/' + this.$route.params.id);
     }
   }, 
 
@@ -51,6 +47,7 @@ export default {
         email: this.email,
         password: this.password
       };
+      console.log(params);
       axios
         .post("/api/sessions", params) 
         .then(response => {
@@ -58,9 +55,9 @@ export default {
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt),
 
-          localStorage.setItem('id', reponse.data.id) 
+          localStorage.setItem('user_id', reponse.data.user_id) 
           
-          this.$router.push("/");
+          this.$router.push("/students/" + response.data.user_id);
         })
         .catch(error => {
           this.errors = ["Invalid email or password."];
