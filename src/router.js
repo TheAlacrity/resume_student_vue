@@ -27,6 +27,8 @@ export default new Router({
     { path: "/login", name: "login", component: Login },
     { path: "/logout", name: "logout", component: Logout },
 
+    { path: '/student/:id', name: 'students-show', component: StudentsShow },
+
     { path: '/student/:id/edit', name: 'edit-students', component: EditStudents },
     { path: '/skills/:id/edit', name: 'edit-skills', component: EditSkills },
     { path: '/experiences/:id/edit', name: 'edit-experiences', component: EditExperiences },
