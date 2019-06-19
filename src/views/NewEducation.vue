@@ -56,7 +56,7 @@ export default {
   },
   created: function() {
     if (localStorage.getItem('jwt')) {
-      axios.get('/api/students/' + localStorage.getItem('id')).then(response => {
+      axios.get('/api/students/' + localStorage.getItem('user_id')).then(response => {
         this.student = response.data; 
       })
     }
@@ -71,7 +71,7 @@ export default {
                     end_date: this.newSchooling.newEndDate,
                     }
       axios.post('/api/educations/', params).then(response => {
-        this.$router.push('/student/' + this.$route.params.id);
+        this.$router.push('/students/' + localStorage.getItem('user_id'))
       })
     }
   }

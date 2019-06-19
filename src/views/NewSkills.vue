@@ -44,7 +44,7 @@ export default {
                     student: this.student.first_name
                     }
       axios.post('/api/skills/', params).then(response => {
-        this.$router.push('/student/' + this.$route.params.id);
+        this.$router.push('/students/' + localStorage.getItem('user_id'));
       })
     }
   }
