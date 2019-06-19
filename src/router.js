@@ -14,6 +14,7 @@ import NewExperience from './views/NewExperience.vue';
 
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
+import ResumeShow from "./views/ResumeShow.vue";
 
 Vue.use(Router);
 
@@ -22,6 +23,7 @@ export default new Router({
   hash: false, 
   base: process.env.BASE_URL,
   routes: [
+
     { path: "/", name: "login", component: Login },
     { path: "/logout", name: "logout", component: Logout },
 
@@ -34,6 +36,8 @@ export default new Router({
     { path: '/create/capstones', name: 'new-capstones', component: NewCapstones },
     { path: '/create/skills', name: 'new-skills', component: NewSkills },
     { path: '/create/education', name: 'new-education', component: NewEducation },
-    { path: '/create/experience', name: 'new-experience', component: NewExperience }
+    { path: '/create/experience', name: 'new-experience', component: NewExperience },
+
+    { path: "/resume", name: "resume_show", component: ResumeShow }
   ]
 })
