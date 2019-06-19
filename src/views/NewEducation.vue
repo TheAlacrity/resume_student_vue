@@ -7,26 +7,26 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputDegree">New Degree</label>
-              <input v-model="newDegree" type="text" class="form-control" id="inputDegree" placeholder="Degree">
+              <input v-model="newSchooling.newDegree" type="text" class="form-control" id="inputDegree" placeholder="Degree">
             </div>
 
             <div class="form-group col-md-6">
               <label for="inputSchooling">School</label>
-              <input v-model="newSchool" type="text" class="form-control" id="inputSchooling" placeholder="School Name">
+              <input v-model="newSchooling.newSchool" type="text" class="form-control" id="inputSchooling" placeholder="School Name">
             </div>
           
             <div class="form-group col-md-6">
               <label for="inputStartDate">Start Date</label>
-              <input v-model='newStartDate' type="text" class="form-control" id="inputStartDate" placeholder="Start Date">
+              <input v-model='newSchooling.newStartDate' type="text" class="form-control" id="inputStartDate" placeholder="Start Date">
             </div>
             <div class="form-group col-md-6">
               <label for="inputEndDate">End Date</label>
-              <input v-model='newEndDate' type="text" class="form-control" id="inputEndDate" placeholder="End Date">
+              <input v-model='newSchooling.newEndDate' type="text" class="form-control" id="inputEndDate" placeholder="End Date">
             </div>
 
             <div class="form-group col-md-12">
               <label for="inputDetails">Details</label>
-              <textarea v-model='newDetails' class="form-control" id="inputDetails" rows="4"></textarea>
+              <textarea v-model='newSchooling.newDetails' class="form-control" id="inputDetails" rows="4"></textarea>
             </div>
           </div>
         <center><button type="submit" class="btn btn-primary">Update</button></center>
@@ -45,16 +45,18 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-      newDegree: '', 
-      newSchooling: '', 
-      newStartDate: '', 
-      newEndDate: '',
-      newDetails: ''
+      newSchooling: {
+                    newDegree: '', 
+                    newSchooling: '', 
+                    newStartDate: '', 
+                    newEndDate: '',
+                    newDetails: ''
+                    }
     };
   },
   created: function() {
     if (localStorage.getItem('jwt')) {
-      axios.get('/api/students/' + localStorage.getItem('id')).then(response => {
+      axios.get('/api/students/' + localStorage.getItem('user_id')).then(response => {
         this.student = response.data; 
       })
     }
@@ -62,14 +64,14 @@ export default {
   methods: {
     submit: function() {
       var params = {
-                    degree: this.newDegree, 
-                    schooling: this.newSchooling, 
-                    details: this.newDetails, 
-                    start_date: this.newStartDate,
-                    end_date: this.newEndDate,
+                    degree: this.newSchooling.newDegree, 
+                    schooling: this.newSchooling.newSchooling, 
+                    details: this.newSchooling.newDetails, 
+                    start_date: this.newSchooling.newStartDate,
+                    end_date: this.newSchooling.newEndDate,
                     }
-      axios.post('/api/student/' + this.$route.params.id + '/education', params).then(response => {
-        this.$router.push('/student/' + this.$route.params.id);
+      axios.post('/api/educations/', params).then(response => {
+        this.$router.push('/students/' + localStorage.getItem('user_id'))
       })
     }
   }

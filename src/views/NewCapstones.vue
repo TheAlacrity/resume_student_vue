@@ -50,7 +50,7 @@ export default {
   }, 
   created: function() {
     if (localStorage.getItem('jwt')) {
-      axios.get('/api/students/' + localStorage.getItem('id')).then(response => {
+      axios.get('/api/students/' + localStorage.getItem('user_id')).then(response => {
         this.student = response.data; 
       })
     }
@@ -64,7 +64,7 @@ export default {
                     screenshot: this.newScreenshot
                     }
       axios.post('/api/capstones/', params).then(response => {
-        this.$router.push('/capstones/' + this.$route.params.id);
+        this.$router.push('/students/' + localStorage.getItem('user_id'));
       })
     }
   }

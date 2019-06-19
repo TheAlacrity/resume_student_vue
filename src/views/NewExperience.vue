@@ -54,7 +54,7 @@ export default {
   },
   created: function() {
     if (localStorage.getItem('jwt')) {
-      axios.get('/api/students/' + localStorage.getItem('id')).then(response => {
+      axios.get('/api/students/' + localStorage.getItem('user_id')).then(response => {
         this.student = response.data; 
       })
     }
@@ -68,8 +68,8 @@ export default {
                     start_date: this.newStartDate,
                     end_date: this.newEndDate
                     }
-      axios.post('/api/student/' + this.$route.params.id + '/experiences/', params).then(response => {
-        this.$router.push('/student/' + this.$route.params.id);
+      axios.post('/api/experiences/', params).then(response => {
+        this.$router.push('/students/' + localStorage.getItem('user_id'));
       })
     }
   }

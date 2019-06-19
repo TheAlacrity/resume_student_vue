@@ -147,8 +147,9 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-    focusedItem: {},
-    student: {}
+    
+      student: []
+
     }
   },
   created: function() {
