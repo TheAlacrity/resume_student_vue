@@ -33,60 +33,108 @@
         <div>
           <img v-bind:src="student.photo" alt=""></img>
         </div>
+
+
         <h5>Skills: </h5>
-        <div>
-          <ul>
-            <li v-for="skill in student.skills">
-              <span v-on:click="focusOnItem(skill)">{{ skill.skill_name }}</span>
-              <div v-if="skill === focusedItem">
+        <div class="accordion" id="accordionSkills">        
+          <div v-for="skill in student.skills">
+            <div class="card">
+              <div class="card-header" v-bind:id="'headingSkill' + skill.id">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" v-bind:data-target="'#collapseSkill' + skill.id" aria-expanded="true" v-bind:aria-controls="'collapseSkill' + skill.id">
+                    {{ skill.skill_name }}
+                  </button>
+                </h2>
+              </div>
+
+              <div v-bind:id="'collapseSkill' + skill.id" class="collapse" v-bind:aria-labelledby="'headingSkill' + skill.id" data-parent="#accordionSkills">
                 <router-link class="btn btn-primary" v-bind:to="'/skills/' + skill.id + '/edit'">Edit</router-link>
                 <span class="btn btn-danger" v-on:click="destroySkill(skill)">Delete</span>
               </div>
-            </li>          
-          </ul>
+            </div>
+          </div>                 
         </div>
         
-        <h5>Experience: </h5>
-        <div v-for="experience in student.experiences">
-          <span v-on:click="focusOnItem(experience)">
-            <p>Job title: {{ experience.job_title }}</p>
-            <p>Company name: {{ experience.company_name }}</p>
-            <p>Date: {{ experience.start_date }} to {{ experience.end_date }}</p>
-            <p>Details: {{ experience.details }}</p>
-          </span>
-          <div v-if="experience === focusedItem">
-            <router-link class="btn btn-primary" v-bind:to="'/experiences/' + experience.id + '/edit'">Edit</router-link>
-            <span class="btn btn-danger" v-on:click="destroyExperience(experience)">Delete</span>
+
+        <h5>Experience: </h5>        
+        <div class="accordion" id="accordionExperiences">
+          <div v-for="experience in student.experiences">
+            <div class="card">
+              <div class="card-header" v-bind:id="'headingExperience' + experience.id">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" v-bind:data-target="'#collapseExperience' + experience.id" aria-expanded="true" v-bind:aria-controls="'collapseExperience' + experience.id">
+                    Job title: {{ experience.job_title }}
+                  </button>
+                </h2>
+              </div>
+            </div>
+
+            <div v-bind:id="'collapseExperience' + experience.id" class="collapse" v-bind:aria-labelledby="'headingExperience' + experience.id" data-parent="#accordionExperiences">
+              <div class="card-body">                 
+                <p>Job title: {{ experience.job_title }}</p>
+                <p>Company name: {{ experience.company_name }}</p>
+                <p>Date: {{ experience.start_date }} to {{ experience.end_date }}</p>
+                <p>Details: {{ experience.details }}</p>
+                <router-link class="btn btn-primary" v-bind:to="'/experiences/' + experience.id + '/edit'">Edit</router-link>
+                <span class="btn btn-danger" v-on:click="destroyExperience(experience)">Delete</span>
+              </div>
+            </div>
           </div>
         </div>
+
 
         <h5>Education: </h5>
-        <div v-for="education in student.educations">
-          <span v-on:click="focusOnItem(education)">
-            <p>Institution name: {{ education.schooling }}</p>
-            <p>Degree earned: {{ education.degree }}</p>
-            <p>Date: {{ education.start_date }} to {{ education.end_date }}</p>
-            <p>Details: {{ education.details }}</p>
-          </span>
-          <div v-if="education === focusedItem">
-            <router-link class="btn btn-primary" v-bind:to="'/educations/' + education.id + '/edit'">Edit</router-link>
-            <span class="btn btn-danger" v-on:click="destroyEducation(education)">Delete</span>
+        <div class="accordion" id="accordionEducations">
+          <div v-for="education in student.educations">
+            <div class="card">
+              <div class="card-header" v-bind:id="'headingEducation' + education.id">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" v-bind:data-target="'#collapseEducation' + education.id" aria-expanded="true" v-bind:aria-controls="'collapseEducation' + education.id">
+                  <p>Institution name: {{ education.schooling }}</p>
+                  </button>
+                </h2>
+              </div>
+            </div>
+
+            <div v-bind:id="'collapseEducation' + education.id" class="collapse" v-bind:aria-labelledby="'headingEducation' + education.id" data-parent="#accordionEducations">
+              <div class="card-body">
+                <p>Degree earned: {{ education.degree }}</p>
+                <p>Date: {{ education.start_date }} to {{ education.end_date }}</p>
+                <p>Details: {{ education.details }}</p>
+               <router-link class="btn btn-primary" v-bind:to="'/educations/' + education.id + '/edit'">Edit</router-link>
+               <span class="btn btn-danger" v-on:click="destroyEducation(education)">Delete</span>
+              </div>
+            </div>
           </div>
         </div>
 
+
         <h5>Capstones: </h5>
-        <div v-for="capstone in student.capstones">
-          <span v-on:click="focusOnItem(capstone)">  
-            <p>Name: {{ capstone.name }}</p>
-            <p>Description: {{ capstone.description }}</p>
-            <a v-bind:href="capstone.url">Link to Capstone</a>
-            <img v-bind:src="capstone.screenshot" alt=""></img>
-          </span>
-          <div v-if="capstone === focusedItem">
-            <router-link class="btn btn-primary" v-bind:to="'/capstones/' + capstone.id + '/edit'">Edit</router-link>
-            <span class="btn btn-danger" v-on:click="destroyCapstone(capstone)">Delete</span>
+        <div class="accordion" id="accordionCapstones">
+          <div v-for="capstone in student.capstones">
+            <div class="card">
+              <div class="card-header" v-bind:id="'headingCapstone' + capstone.id">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" v-bind:data-target="'#collapseCapstone' + capstone.id" aria-expanded="true" v-bind:aria-controls="'collapseCapstone' + capstone.id">
+                  <p>Name: {{ capstone.name }}</p>
+                  </button>
+                </h2>
+              </div>
+            </div>
+             
+            <div v-bind:id="'collapseCapstone' + capstone.id" class="collapse" v-bind:aria-labelledby="'headingCapstone' + capstone.id" data-parent="#accordionCapstones">
+              <div class="card-body">
+                <p>Description: {{ capstone.description }}</p>
+                <a v-bind:href="capstone.url">Link to Capstone</a>
+                <img v-bind:src="capstone.screenshot" alt=""></img>
+                <router-link class="btn btn-primary" v-bind:to="'/capstones/' + capstone.id + '/edit'">Edit</router-link>
+                <span class="btn btn-danger" v-on:click="destroyCapstone(capstone)">Delete</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
 
       </div>
     </div>
@@ -166,71 +214,6 @@ export default {
                       ]
           }
 
-    // student: {
-    //         id: 1,
-    //         first_name: "Alexandria",
-    //         last_name: "Erb",
-    //         email: "lieseerb@gmail.com",
-    //         password_digest: "filler",
-    //         phone_number: "630-740-6932",
-    //         short_bio: "words here",
-    //         linked_in_url: "https://www.linkedin.com/in/alexandria-erb/",
-    //         twitter_handle: "https://github.com/ErbalEssences",
-    //         personal_blog: "https://github.com/ErbalEssences",
-    //         website_url: "https://github.com/ErbalEssences",
-    //         resume_url: "https://github.com/ErbalEssences",
-    //         github_url: "https://github.com/ErbalEssences",
-    //         photo: "https://images.unsplash.com/photo-1516934024742-b461fba47600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
-    //         skills: [
-    //                     {
-    //                       id: 1,
-    //                       student_id: 1,
-    //                       skill_name: "something"
-    //                     },
-    //                     {
-    //                       id: 2,
-    //                       student_id: 1,
-    //                       skill_name: "something 2",
-    //                     },
-    //                     {
-    //                       id: 3,
-    //                       student_id: 1,
-    //                       skill_name: "something 3"
-    //                     },
-    //                   ],
-    //         experiences: [
-    //                         {
-    //                           id: 1,
-    //                           student_id: 1,
-    //                           start_date: "1993-05-07",
-    //                           end_date: "2345-06-17",
-    //                           job_title: "Empress of the World",
-    //                           company_name: "Earth",
-    //                           details: "blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla"
-    //                         }
-    //                       ],
-    //         educations: [
-    //                       {
-    //                         id: 1,
-    //                         student_id: 1,
-    //                         start_date: "2019-04-21",
-    //                         end_date: "2019-07-12",
-    //                         degree: "certificate",
-    //                         schooling: "Actualize",
-    //                         details:"blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla"
-    //                       }
-    //                     ],
-    //         capstones:[
-    //                     {
-    //                       id: 1,
-    //                       student_id: 1,
-    //                       name: "SewWhat",
-    //                       description: "blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla",
-    //                       url: "https://github.com/ErbalEssences",
-    //                       screenshot: "https://images.unsplash.com/photo-1516934024742-b461fba47600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
-    //                     }
-    //                   ]
-    //       }
     }
   },
   created: function() {
