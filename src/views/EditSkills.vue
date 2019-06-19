@@ -43,7 +43,7 @@ export default {
                     skill_name: this.skills.skill_name
                     }
       axios.patch('/api/skills/' + this.$route.params.id, params).then(response => {
-        this.$router.push('/student/' + this.skills.student_id);
+        this.$router.push('/students/' + this.skills.student_id);
       })
     }
   }

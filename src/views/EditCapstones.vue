@@ -40,13 +40,15 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-      capstone: []
+      capstone: [],
+      student_id: ''
     };
   },
   created: function() {
     if (localStorage.getItem('jwt')) {
       axios.get('/api/capstones/' + this.$route.params.id).then(response => {
         this.capstone = response.data; 
+        this.student_id = response.data.student_id
       })
     }
   },
@@ -59,7 +61,7 @@ export default {
                     screenshot: this.capstone.screenshot
                     }
       axios.patch('/api/capstones/' + this.$route.params.id, params).then(response => {
-        this.$router.push('/student/' + this.$route.params.id);
+        this.$router.push('/students/' + this.capstone.student_id);
       })
     }
   }

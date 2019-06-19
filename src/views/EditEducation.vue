@@ -64,7 +64,7 @@ export default {
                     end_date: this.education.end_date
                     }
       axios.patch('/api/educations/' + this.$route.params.id, params).then(response => {
-        this.$router.push('/student/' + this.$route.params.id);
+        this.$router.push('/students/' + this.education.student_id);
       })
     }
   }

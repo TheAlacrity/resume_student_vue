@@ -115,7 +115,7 @@ export default {
                     twitter_handle: this.student.twitter_handle
                     }
       axios.patch('/api/students/' + this.$route.params.id, params).then(response => {
-        this.$router.push('/student/' + this.$route.params.id);
+        this.$router.push('/students/' + this.$route.params.id);
       }).catch(error => {
           this.errors = error.response.data.errors;
         });
