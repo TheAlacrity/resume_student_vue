@@ -14,7 +14,7 @@ import NewExperience from './views/NewExperience.vue';
 
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
-import ResumeShow from "./views/ResumeShow.vue";
+import StudentsShow from "./views/StudentsShow.vue";
 
 Vue.use(Router);
 
@@ -38,6 +38,6 @@ export default new Router({
     { path: '/create/education', name: 'new-education', component: NewEducation },
     { path: '/create/experience', name: 'new-experience', component: NewExperience },
 
-    { path: "/resume", name: "resume_show", component: ResumeShow }
+    { path: "/students/:id", name: "students-show", component: StudentsShow }
   ]
 })

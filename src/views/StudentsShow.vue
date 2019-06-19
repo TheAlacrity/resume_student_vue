@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="resume_show">
+    <div class="students-show">
       <h1>{{ student.first_name }}'s Resume Info<router-link class="btn btn-primary" v-bind:to="'/students/' + student.id + '/edit'">Edit</router-link></h1>
 
       <div>
@@ -101,20 +101,20 @@ export default {
     return {
     focusedItem: {},
     student: {
-            id: 1,
-            first_name: "Alexandria",
-            last_name: "Erb",
-            email: "lieseerb@gmail.com",
-            password_digest: "filler",
-            phone_number: "630-740-6932",
-            short_bio: "words here",
-            linked_in_url: "https://www.linkedin.com/in/alexandria-erb/",
-            twitter_handle: "https://github.com/ErbalEssences",
-            personal_blog: "https://github.com/ErbalEssences",
-            website_url: "https://github.com/ErbalEssences",
-            resume_url: "https://github.com/ErbalEssences",
-            github_url: "https://github.com/ErbalEssences",
-            photo: "https://images.unsplash.com/photo-1516934024742-b461fba47600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+            id: "",
+            first_name: "",
+            last_name: "",
+            email: "",
+            password_digest: "",
+            phone_number: "",
+            short_bio: "",
+            linked_in_url: "",
+            twitter_handle: "",
+            personal_blog: "",
+            website_url: "http://github.com/ErbalEssences",
+            resume_url: "http://github.com/ErbalEssences",
+            github_url: "http://github.com/ErbalEssences",
+            photo: "http://images.unsplash.com/photo-1516934024742-b461fba47600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
             skills: [
                         {
                           id: 1,
@@ -165,7 +165,78 @@ export default {
                         }
                       ]
           }
+
+    // student: {
+    //         id: 1,
+    //         first_name: "Alexandria",
+    //         last_name: "Erb",
+    //         email: "lieseerb@gmail.com",
+    //         password_digest: "filler",
+    //         phone_number: "630-740-6932",
+    //         short_bio: "words here",
+    //         linked_in_url: "https://www.linkedin.com/in/alexandria-erb/",
+    //         twitter_handle: "https://github.com/ErbalEssences",
+    //         personal_blog: "https://github.com/ErbalEssences",
+    //         website_url: "https://github.com/ErbalEssences",
+    //         resume_url: "https://github.com/ErbalEssences",
+    //         github_url: "https://github.com/ErbalEssences",
+    //         photo: "https://images.unsplash.com/photo-1516934024742-b461fba47600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+    //         skills: [
+    //                     {
+    //                       id: 1,
+    //                       student_id: 1,
+    //                       skill_name: "something"
+    //                     },
+    //                     {
+    //                       id: 2,
+    //                       student_id: 1,
+    //                       skill_name: "something 2",
+    //                     },
+    //                     {
+    //                       id: 3,
+    //                       student_id: 1,
+    //                       skill_name: "something 3"
+    //                     },
+    //                   ],
+    //         experiences: [
+    //                         {
+    //                           id: 1,
+    //                           student_id: 1,
+    //                           start_date: "1993-05-07",
+    //                           end_date: "2345-06-17",
+    //                           job_title: "Empress of the World",
+    //                           company_name: "Earth",
+    //                           details: "blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla"
+    //                         }
+    //                       ],
+    //         educations: [
+    //                       {
+    //                         id: 1,
+    //                         student_id: 1,
+    //                         start_date: "2019-04-21",
+    //                         end_date: "2019-07-12",
+    //                         degree: "certificate",
+    //                         schooling: "Actualize",
+    //                         details:"blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla"
+    //                       }
+    //                     ],
+    //         capstones:[
+    //                     {
+    //                       id: 1,
+    //                       student_id: 1,
+    //                       name: "SewWhat",
+    //                       description: "blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla",
+    //                       url: "https://github.com/ErbalEssences",
+    //                       screenshot: "https://images.unsplash.com/photo-1516934024742-b461fba47600?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+    //                     }
+    //                   ]
+    //       }
     }
+  },
+  created: function() {
+      axios.get("/api/students/" + this.$route.params.id ).then(response => {
+        this.student = response.data;
+      });
   },
   methods: {
     focusOnItem: function(inputItem) {
@@ -177,41 +248,40 @@ export default {
     },
 
     destroySkill: function(skill) {
-      axios
-        .delete("/api/skills/" + skills.id)
-        .then(response => {
+      axios.delete("/api/skills/" + skills.id).then(response => {
           var index = this.student.skills.indexOf(skill);
           this.students.skills.splice(index, 1);
         });
     },
 
     destroyExperience: function(experience) {
-      axios
-        .delete("/api/experiences/" + experiences.id)
-        .then(response => {
+      axios.delete("/api/experiences/" + experiences.id).then(response => {
           var index = this.student.experiences.indexOf(experience);
           this.students.experiences.splice(index, 1);
         });
     },
 
     destroyEducation: function(education) {
-      axios
-        .delete("/api/educations/" + education.id)
-        .then(response => {
+      axios.delete("/api/educations/" + education.id).then(response => {
           var index = this.student.educations.indexOf(education);
           this.students.educations.splice(index, 1);
         });
     },
 
     destroyCapstone: function(capstone) {
-      axios
-        .delete("/api/capstones/" + capstones.id)
-        .then(response => {
+      axios.delete("/api/capstones/" + capstones.id).then(response => {
           var index = this.student.capstones.indexOf(capstone);
           this.students.capstones.splice(index, 1);
         });
     }
+  },
+
+  beforeRouteUpdate: function(to, from, next) {
+    axios.get("/api/students/" + to.params.id ).then(response => {
+      this.student = response.data;
+    });
+
+    next();
   }
 };
-  // created: function() {
-  </script>
+</script>
