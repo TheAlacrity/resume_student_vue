@@ -29,7 +29,7 @@ export default new Router({
 
     { path: '/student/:id', name: 'students-show', component: StudentsShow },
 
-    { path: '/student/:id/edit', name: 'edit-students', component: EditStudents },
+    { path: '/students/:id/edit', name: 'edit-students', component: EditStudents },
     { path: '/skills/:id/edit', name: 'edit-skills', component: EditSkills },
     { path: '/experiences/:id/edit', name: 'edit-experiences', component: EditExperiences },
     { path: '/educations/:id/edit', name: 'edit-education', component: EditEducation },
