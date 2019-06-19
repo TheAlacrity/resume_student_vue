@@ -36,12 +36,8 @@ export default {
     };
   },
   created: function() {
-    if (localStorage.getItem('jwt')) {
-      alert("You're already logged in!")
-      axios.get('/api/students').then(response => {
-      this.student = response.data;
-      this.$router.push('/');
-      });
+    if (localStorage.getItem('user_id')) {
+      this.$router.push('/students/' + this.$route.params.id);
     }
   }, 
 
@@ -52,15 +48,14 @@ export default {
         password: this.password
       };
       axios
-        .post("/api/students", params) 
+        .post("/api/sessions", params) 
         .then(response => {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
-          localStorage.setItem("jwt", response.data.jwt),
-
-          localStorage.setItem('id', reponse.data.id) 
-          
-          this.$router.push("/");
+          localStorage.setItem("jwt", response.data.jwt);
+          localStorage.setItem("user_id", response.data.user_id);
+      
+          this.$router.push("/students/" + response.data.user_id);
         })
         .catch(error => {
           this.errors = ["Invalid email or password."];
