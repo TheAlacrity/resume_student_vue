@@ -25,7 +25,7 @@
 
           <div class="form-group col-md-12">
             <label for="inputDetails">Short Bio</label>
-            <textarea v-model='experience.details' class="form-control" id="inputDetails" rows="4"></textarea>
+            <textarea v-model='experience.details' class="form-control" id="inputDetails" rows="4" v-bind:placeholder="experience.details"></textarea>
           </div>
         </div>
       <center><button type="submit" class="btn btn-primary">Update</button></center>
@@ -45,7 +45,7 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-      experience: []
+      experience: [],
     };
   },
   created: function() {

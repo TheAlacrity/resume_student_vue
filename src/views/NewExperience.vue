@@ -68,7 +68,7 @@ export default {
                     start_date: this.newStartDate,
                     end_date: this.newEndDate
                     }
-      axios.post('/api/student/' + this.$route.params.id + '/experiences/', params).then(response => {
+      axios.post('/api/experiences/', params).then(response => {
         this.$router.push('/student/' + this.$route.params.id);
       })
     }

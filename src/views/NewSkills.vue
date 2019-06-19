@@ -25,12 +25,13 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-      newSkill: ''
+      newSkill: '',
+      student: []
     };
   },
   created: function() {
     if (localStorage.getItem('jwt')) {
-      axios.get('/api/students/' + localStorage.getItem('id')).then(response => {
+      axios.get('/api/students/' + localStorage.getItem('user_id')).then(response => {
         this.student = response.data; 
       })
     }
@@ -38,9 +39,11 @@ export default {
   methods: {
     submit: function() {
       var params = {
-                    skill: this.newSkill
+                    skill_name: this.newSkill,
+                    student_id: localStorage.getItem('user_id'),
+                    student: this.student.first_name
                     }
-      axios.post('/api/student/' + this.$route.params.id + '/skills/', params).then(response => {
+      axios.post('/api/skills/', params).then(response => {
         this.$router.push('/student/' + this.$route.params.id);
       })
     }
