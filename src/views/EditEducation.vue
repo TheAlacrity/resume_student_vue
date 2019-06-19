@@ -1,20 +1,41 @@
 <template>
-  <div class='edit-student'>
-  <div class='container'>
+  <div class='edit-education'>
+    <div class='container'>
     <h1>{{ student['first_name'] }} {{ student['last_name'] }}</h1>
     <br>
-    <form v-on:submit.prevent='submit()'>
-      <div v-for="skill in student['skills']">
-        <div class="form-row">
-            <label for="inputSkill" class="col-sm-2 col-form-label">{{ student.first_name }}'s Skill</label>
-            <input v-model="skill['skills']" type="text" class="form-control col-sm-10" id="inputSkillName" v-bind:placeholder="skill.skill_name">
-        </div>
-        <br>
+      <form v-on:submit.prevent='submit()'>
+        <div v-for="edu in student['educations']">
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputDegree">Highest Degree Achieved</label>
+              <input v-model="student.educations.degree" type="text" class="form-control" id="inputDegree" v-bind:placeholder="edu.degree">
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="inputSchooling">School</label>
+              <input v-model="student.educations.schooling" type="text" class="form-control" id="inputSchooling" v-bind:placeholder="edu.schooling">
+            </div>
+          
+            <div class="form-group col-md-6">
+              <label for="inputStartDate">Start Date</label>
+              <input v-model='student.educations.start_date' type="text" class="form-control" id="inputStartDate" v-bind:placeholder="edu.start_date">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputEndDate">End Date</label>
+              <input v-model='student.educations.end_date' type="text" class="form-control" id="inputEndDate" v-bind:placeholder="edu.end_date">
+            </div>
+
+            <div class="form-group col-md-12">
+              <label for="inputDetails">Details</label>
+              <textarea v-model='student.educations.details' class="form-control" id="inputDetails" rows="4"></textarea>
+            </div>
+          </div>
+        <center><button type="submit" class="btn btn-primary">Update</button></center>
+          <br>
       </div>
-        <br>
-    <center><button type="submit" class="btn btn-primary">Update</button></center>
     </form>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -118,9 +139,13 @@ export default {
   methods: {
     submit: function() {
       var params = {
-                    skill: this.skill_name
+                    degree: this.student.education.degree, 
+                    schooling: this.student.education.schooling, 
+                    details: this.student.education.details, 
+                    start_date: this.student.education.start_date,
+                    end_date: this.student.education.end_date
                     }
-      axios.patch('/api/student/' + this.$route.params.id + '/skills/edit', params).then(response => {
+      axios.patch('/api/student/' + this.$route.params.id + '/education/edit/', params).then(response => {
         this.$router.push('/student/' + this.$route.params.id);
       })
     }

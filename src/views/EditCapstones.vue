@@ -1,20 +1,37 @@
 <template>
-  <div class='edit-student'>
-  <div class='container'>
+  <div class='edit-capstones'>
+    <div class='container'>
     <h1>{{ student['first_name'] }} {{ student['last_name'] }}</h1>
     <br>
-    <form v-on:submit.prevent='submit()'>
-      <div v-for="skill in student['skills']">
-        <div class="form-row">
-            <label for="inputSkill" class="col-sm-2 col-form-label">{{ student.first_name }}'s Skill</label>
-            <input v-model="skill['skills']" type="text" class="form-control col-sm-10" id="inputSkillName" v-bind:placeholder="skill.skill_name">
-        </div>
-        <br>
+      <form v-on:submit.prevent='submit()'>
+        <div v-for="cap in student['capstones']">
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputName">Capstone Title</label>
+              <input v-model="student.capstones.name" type="text" class="form-control" id="inputName" v-bind:placeholder="cap.name">
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="inputScreenshot">Screenshot</label>
+              <input v-model="student.capstones.screenshot" type="text" class="form-control" id="inputScreenshot" v-bind:placeholder="cap.screenshot">
+            </div>
+          
+            <div class="form-group col-md-12">
+              <label for="inputUrl">URL</label>
+              <input v-model='student.capstones.url' type="text" class="form-control" id="inputUrl" v-bind:placeholder="cap.url">
+            </div>
+
+            <div class="form-group col-md-12">
+              <label for="inputDescription">Description</label>
+              <textarea v-model='student.capstones.description' class="form-control" id="inputDescription" rows="4"></textarea>
+            </div>
+          </div>
+        <center><button type="submit" class="btn btn-primary">Update</button></center>
+          <br>
       </div>
-        <br>
-    <center><button type="submit" class="btn btn-primary">Update</button></center>
     </form>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -118,9 +135,13 @@ export default {
   methods: {
     submit: function() {
       var params = {
-                    skill: this.skill_name
+                    degree: this.student.education.degree, 
+                    schooling: this.student.education.schooling, 
+                    details: this.student.education.details, 
+                    start_date: this.student.education.start_date,
+                    end_date: this.student.education.end_date
                     }
-      axios.patch('/api/student/' + this.$route.params.id + '/skills/edit', params).then(response => {
+      axios.patch('/api/student/' + this.$route.params.id + '/capstones/edit/', params).then(response => {
         this.$router.push('/student/' + this.$route.params.id);
       })
     }

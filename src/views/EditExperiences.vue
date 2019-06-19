@@ -1,9 +1,8 @@
 <template>
   <div class='edit-experiences'>
+    <div class='container'>
     <h1>{{ student['first_name'] }} {{ student['last_name'] }}</h1>
     <br>
-
-    <div class='container'>
       <form v-on:submit.prevent='submit()'>
         <div v-for="exp in student['experiences']">
 
@@ -140,7 +139,11 @@ export default {
   methods: {
     submit: function() {
       var params = {
-                    
+                    details: this.student.experiences.details, 
+                    company_name: this.student.experiences.company_name, 
+                    job_title: this.student.experiences.job_title, 
+                    start_date: this.student.experiences.start_date,
+                    end_date: this.student.experiences.end_date
                     }
       axios.patch('/api/student/' + this.$route.params.id + '/experiences/edit/', params).then(response => {
         this.$router.push('/student/' + this.$route.params.id);

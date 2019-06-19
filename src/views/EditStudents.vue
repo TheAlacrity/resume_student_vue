@@ -1,10 +1,8 @@
 <template>
   <div class='edit-experience'>
+  <div class='container'>
     <h1>{{ student['first_name'] }} {{ student['last_name'] }}</h1>
       <br>
-    <h1>{{ student.name }}</h1>
-      <br>
-  <div class='container'>
     <form v-on:submit.prevent='submit()'>
       <div class="form-row">
         <div class="form-group col-md-6">
@@ -28,7 +26,6 @@
         <label for="inputPhoneNuber">Phone Number</label>
         <input v-model='student.phone_number' type="text" class="form-control" id="inputPhoneNumber" v-bind:placeholder="student.phone_number">
       </div>
-
     </div>
 
     <div class="form-group">
